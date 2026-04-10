@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Tikshoret | Agence digitale premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <style>
+    /* Variables */
+    :root {
+      --bg-body: #ffffff;
+      --text-primary: #1e40af;
+      --text-secondary: #1e3a8a;
+      --text-muted: #3b82f6;
+      --card-bg: #ffffff;
+      --card-border: #bfdbfe;
+      --card-hover-bg: #dbeafe;
+      --hero-text: #1e3a8a;
+      --footer-bg: #ffffff;
+      --footer-border: #bfdbfe;
+      --input-bg: rgba(30,64,175,0.05);
+      --input-border: rgba(30,64,175,0.2);
+      --glass-bg: rgba(255,255,255,0.9);
+      --glass-shadow: rgba(0,0,0,0.2);
+      --btn-primary: linear-gradient(135deg, #1e40af, #2563eb);
+      --btn-primary-hover: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+      --section-bg: #ffffff;
+      --section-alt-bg: #eff6ff;
+      --realisations-title-gradient: linear-gradient(135deg, #1e40af, #2563eb, #3b82f6);
+      --realisations-sub-color: #2563eb;
+      --hero-gradient-start: #1e3a8a;
+      --hero-gradient-end: #2563eb;
+      --service-gradient-start: #1e40af;
+      --service-gradient-end: #3b82f6;
+    }
+    body.dark-mode {
+      --bg-body: #0f172a;
+      --text-primary: #93c5fd;
+      --text-secondary: #bfdbfe;
+      --text-muted: #60a5fa;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --card-hover-bg: #334155;
+      --hero-text: #f1f5f9;
+      --footer-bg: #0f172a;
+      --footer-border: #334155;
+      --input-bg: rgba(255,255,255,0.05);
+      --input-border: rgba(255,255,255,0.2);
+      --glass-bg: rgba(15,23,42,0.9);
+      --glass-shadow: rgba(0,0,0,0.5);
+      --btn-primary: linear-gradient(135deg, #3b82f6, #60a5fa);
+      --btn-primary-hover: linear-gradient(135deg, #2563eb, #3b82f6);
+      --section-bg: #0f172a;
+      --section-alt-bg: #1e293b;
+      --realisations-title-gradient: linear-gradient(135deg, #ffffff, #cbd5e1, #94a3b8);
+      --realisations-sub-color: #94a3b8;
+      --hero-gradient-start: #ffffff;
+      --hero-gradient-end: #ffffff;
+      --service-gradient-start: #ffffff;
+      --service-gradient-end: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .hero-gradient-text {
+      background: linear-gradient(135deg, var(--hero-gradient-start), var(--hero-gradient-end));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    body.dark-mode .hero-gradient-text {
+      background: none;
+      color: #ffffff !important;
+    }
+    .service-gradient-text {
+      background: linear-gradient(135deg, var(--service-gradient-start), var(--service-gradient-end));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    body.dark-mode .service-gradient-text {
+      background: none;
+      color: #ffffff !important;
+    }
+    .glass-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(0px);
+      background: rgba(255,255,255,0);
+      transition: backdrop-filter 0.05s linear, background 0.05s linear;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+    .fade-up, .fade-left, .fade-right, .scale-up {
+      opacity: 0;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up { transform: translateY(40px); }
+    .fade-left { transform: translateX(-40px); }
+    .fade-right { transform: translateX(40px); }
+    .scale-up { transform: scale(0.9); }
+    .fade-up.visible, .fade-left.visible, .fade-right.visible, .scale-up.visible {
+      opacity: 1;
+      transform: translate(0) scale(1);
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0px); opacity: 0.2; }
+      50% { transform: translateY(-20px); opacity: 0.5; }
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #e2e8f0; }
+    ::-webkit-scrollbar-thumb { background: #1e40af; border-radius: 10px; }
+    body.dark-mode ::-webkit-scrollbar-track { background: #1e293b; }
+    body.dark-mode ::-webkit-scrollbar-thumb { background: #3b82f6; }
+    html { scroll-behavior: smooth; }
+    
+    /* Marquee */
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes scrollRight {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .marquee-line1 {
+      animation: scrollLeft 25s linear infinite;
+      width: fit-content;
+      display: flex;
+      gap: 2rem;
+    }
+    .marquee-line2 {
+      animation: scrollRight 30s linear infinite;
+      width: fit-content;
+      display: flex;
+      gap: 2rem;
+    }
+    .marquee-line1:hover, .marquee-line2:hover {
+      animation-play-state: paused;
+    }
+    
+    .glass-card {
+      background: rgba(30,64,175,0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--card-border);
+      border-radius: 2rem;
+      padding: 0.75rem 1.5rem;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+      font-weight: bold;
+      font-size: 1.25rem;
+      white-space: nowrap;
+    }
+    body.dark-mode .glass-card {
+      background: rgba(59,130,246,0.1);
+    }
+    .glass-card:hover {
+      background: rgba(59,130,246,0.2);
+      color: #2563eb;
+      transform: scale(1.05);
+      border-color: #3b82f6;
+    }
+    
+    .testimonials-section {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    .testimonials-section h2,
+    .testimonials-section p {
+      color: #ffffff !important;
+    }
+    .testimonials-section .glass-card {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #ffffff;
+    }
+    .testimonials-section .glass-card:hover {
+      background: rgba(59,130,246,0.4);
+      color: #ffffff;
+      border-color: #3b82f6;
+    }
+    
+    /* Hero section - plus de min-height pour éviter espace blanc */
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 1.5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.pinimg.com/1200x/d0/c3/d8/d0c3d8cc418ca3cb16682c178d220d0e.jpg') center/cover no-repeat;
+      animation: zoomBg 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+    body.dark-mode .hero-bg {
+      filter: brightness(0.6);
+    }
+    @keyframes zoomBg {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
+    }
+    
+    /* Navigation */
+    #navbar {
+      transition: all 0.3s ease;
+    }
+    #navbar .liquidGlass-wrapper {
+      position: relative;
+      display: inline-flex;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border-radius: 3rem;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      box-shadow: none;
+    }
+    #navbar.scrolled .liquidGlass-wrapper {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 6px 6px var(--glass-shadow), 0 0 20px var(--glass-shadow);
+    }
+    .nav-wrapper {
+      text-align: center;
+    }
+    .liquidGlass-text {
+      padding: 0.5rem 1.5rem;
+    }
+    .nav-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+    @media (max-width: 767px) {
+      .nav-wrapper {
+        text-align: left;
+      }
+      #navbar .liquidGlass-wrapper {
+        display: block;
+        width: 100%;
+      }
+      .nav-container {
+        justify-content: space-between;
+      }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        padding-top: 1rem;
+        gap: 1rem;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+      #navbar .liquidGlass-wrapper {
+        background: var(--glass-bg);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 6px 6px var(--glass-shadow);
+      }
+    }
+    
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    
+    /* Sections avec marges contrôlées */
+    section {
+      margin: 0;
+      padding: 0;
+    }
+    .realisations-section {
+      background-color: var(--section-bg) !important;
+      padding: 5rem 1.5rem;
+      border: none !important;
+      transition: background-color 0.3s ease;
+    }
+    .realisations-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+      background: var(--realisations-title-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .realisations-sub {
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 3rem;
+      font-size: 1.1rem;
+      color: var(--realisations-sub-color);
+      transition: color 0.3s ease;
+    }
+    .photogallery {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+    .photogallery li {
+      height: 40vh;
+      flex-grow: 1;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      border-radius: 1rem;
+      margin: 0.2em;
+    }
+    .photogallery li:hover {
+      transform: scale(1.01);
+      box-shadow: 0 15px 30px -10px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+    .photogallery li:last-child {
+      flex-grow: 10;
+    }
+    .photogallery img {
+      max-height: 100%;
+      min-width: 100%;
+      object-fit: cover;
+      vertical-align: bottom;
+      transition: transform 0.4s ease;
+    }
+    .photogallery li:hover img {
+      transform: scale(1.03);
+    }
+    @media (max-aspect-ratio: 1/1) {
+      .photogallery li {
+        height: 30vh;
+      }
+    }
+    @media (max-height: 480px) {
+      .photogallery li {
+        height: 80vh;
+      }
+    }
+    @media (max-aspect-ratio: 1/1) and (max-width: 480px) {
+      .photogallery {
+        flex-direction: column;
+      }
+      .photogallery li {
+        height: auto;
+        width: 100%;
+      }
+      .photogallery img {
+        width: 100%;
+        max-height: 75vh;
+        min-width: 0;
+      }
+    }
+    
+    #about {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+    }
+    #about h2, #about h3, #about p, #about span, #about i {
+      color: #ffffff !important;
+    }
+    #about .border-blue-300 {
+      border-color: rgba(255,255,255,0.3) !important;
+    }
+    #about .bg-blue-100 {
+      background-color: rgba(255,255,255,0.1) !important;
+    }
+    #about .absolute {
+      background: linear-gradient(135deg, #111, #333) !important;
+    }
+    #about .text-blue-200 {
+      color: #ccc !important;
+    }
+    
+    .tikshorets-section {
+      background-color: var(--section-alt-bg);
+      padding: 5rem 1.5rem;
+    }
+    .tikshorets-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .tikshorets-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-secondary);
+      display: inline-block;
+      white-space: nowrap;
+      width: 280px;
+      text-align: left;
+      margin-bottom: 3rem;
+      /* Le curseur est ajouté dynamiquement en JS, plus de CSS border-right */
+    }
+    .logos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      align-items: center;
+    }
+    .logo-item {
+      flex: 0 0 auto;
+      width: 140px;
+      transition: transform 0.3s ease;
+    }
+    .logo-item:hover {
+      transform: scale(1.05);
+    }
+    .logo-item img {
+      width: 100%;
+      height: auto;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    .logo-item:hover img {
+      filter: grayscale(0%);
+    }
+    @media (max-width: 768px) {
+      .logo-item {
+        width: 100px;
+      }
+      .logos-grid {
+        gap: 2rem;
+      }
+      .tikshorets-title {
+        font-size: 1.8rem;
+        width: 220px;
+      }
+    }
+    
+    /* Animations */
+    .floating-text {
+      animation: floatText 3s ease-in-out infinite;
+      display: inline-block;
+    }
+    .animated-title {
+      animation: floatHeroText 3s ease-in-out infinite;
+      display: inline-block;
+    }
+    @keyframes floatHeroText {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    
+    /* Dropping texts */
+    .dropping-texts {
+      display: inline-block;
+      width: 210px;
+      text-align: left;
+      vertical-align: middle;
+      position: relative;
+      margin-left: 8px;
+      height: 1.2em;
+    }
+    .dropping-texts > div {
+      font-size: 0px;
+      opacity: 0;
+      margin-left: -15px;
+      position: absolute;
+      font-weight: 700;
+      white-space: nowrap;
+      color: #60a5fa;
+      top: 0;
+      left: 0;
+      transform: rotate(0deg);
+      font-size: 0.7em;
+      transition: none;
+    }
+    .dropping-texts > div:nth-child(1) { animation: dropText 5s linear infinite 0s; }
+    .dropping-texts > div:nth-child(2) { animation: dropText 5s linear infinite 1s; }
+    .dropping-texts > div:nth-child(3) { animation: dropText 5s linear infinite 2s; }
+    .dropping-texts > div:nth-child(4) { animation: dropText 5s linear infinite 3s; }
+    .dropping-texts > div:nth-child(5) { animation: dropText 5s linear infinite 4s; }
+    @keyframes dropText {
+      0% {
+        font-size: 0px;
+        opacity: 0;
+        margin-left: -20px;
+        transform: translateY(-20px) rotate(-15deg);
+      }
+      5% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+      10% {
+        font-size: 0.7em;
+        opacity: 1;
+        margin-left: 0px;
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        font-size: 0.7em;
+        opacity: 1;
+        margin-left: 0px;
+        transform: translateY(0) rotate(0deg);
+      }
+      30% {
+        font-size: 0px;
+        opacity: 0;
+        margin-left: 15px;
+        transform: translateY(20px) rotate(10deg);
+      }
+      100% {
+        font-size: 0px;
+        opacity: 0;
+        margin-left: -20px;
+        transform: translateY(-20px) rotate(-15deg);
+      }
+    }
+    
+    /* Formulaires */
+    .premium-input {
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      transition: all 0.3s ease;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      width: 100%;
+      color: var(--text-primary);
+    }
+    .premium-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+      outline: none;
+      background: var(--input-bg);
+    }
+    .ripple-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: var(--btn-primary);
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      cursor: pointer;
+    }
+    .ripple-btn:hover {
+      background: var(--btn-primary-hover);
+    }
+    
+    /* Boutons flottants */
+    .floating-buttons {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 100;
+    }
+    .dark-mode-btn {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      animation: floatChat 2s ease-in-out infinite;
+      border: none;
+      color: white;
+      font-size: 28px;
+    }
+    body.dark-mode .dark-mode-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+    }
+    .chat-button {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      animation: floatChat 2s ease-in-out infinite;
+    }
+    @keyframes floatChat {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .chat-button i, .dark-mode-btn i {
+      font-size: 28px;
+      color: white;
+    }
+    .chat-window {
+      position: fixed;
+      bottom: 100px;
+      right: 30px;
+      width: 350px;
+      height: 500px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 100;
+      transition: all 0.3s ease;
+      border: 1px solid var(--card-border);
+    }
+    .chat-window.hidden {
+      display: none;
+    }
+    .chat-header {
+      background: linear-gradient(135deg, #1e40af, #3b82f6);
+      color: white;
+      padding: 15px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: var(--section-alt-bg);
+    }
+    .message {
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .message.bot {
+      align-items: flex-start;
+    }
+    .message.user {
+      align-items: flex-end;
+    }
+    .message-bubble {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .message.bot .message-bubble {
+      background: var(--card-border);
+      color: var(--text-primary);
+    }
+    .message.user .message-bubble {
+      background: #3b82f6;
+      color: white;
+    }
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid var(--card-border);
+      background: var(--card-bg);
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 25px;
+      outline: none;
+      font-size: 14px;
+      background: var(--input-bg);
+      color: var(--text-primary);
+    }
+    .chat-input button {
+      background: #3b82f6;
+      border: none;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    
+    /* Footer */
+    .footer-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+    }
+    .footer-logo-img {
+      height: 40px;
+      width: auto;
+    }
+    .footer-social ul {
+      display: flex;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+    }
+    .footer-social li {
+      list-style: none;
+    }
+    .footer-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: var(--input-bg);
+      border-radius: 50%;
+      font-size: 18px;
+      color: var(--text-primary);
+      transition: all 0.2s ease-in-out;
+      text-decoration: none;
+      border: 1px solid var(--card-border);
+    }
+    .footer-social li:nth-child(1) a:hover { background-color: #3b5999; color: white; border-color: #3b5999; }
+    .footer-social li:nth-child(2) a:hover { background-color: #55acee; color: white; border-color: #55acee; }
+    .footer-social li:nth-child(3) a:hover { background-color: #0077b5; color: white; border-color: #0077b5; }
+    .footer-social li:nth-child(4) a:hover { background-color: #dd4b39; color: white; border-color: #dd4b39; }
+    .footer-social li:nth-child(5) a:hover { background: linear-gradient(45deg, #f09433, #d62976, #962fbf); color: white; border-color: #d62976; }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+    }
+    .footer-copyright {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 768px) {
+      .footer-main {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+    
+    .nav-logo-img {
+      height: 45px;
+      width: auto;
+      display: block;
+    }
+    
+    section:not(#home):not(#about) {
+      background-color: var(--section-bg);
+    }
+    #contact {
+      background-color: var(--section-alt-bg);
+    }
+    .bg-blue-50 {
+      background-color: var(--section-alt-bg);
+    }
+    .bg-white {
+      background-color: var(--section-bg);
+    }
+    .text-blue-900, .text-blue-800, .text-blue-700, .text-blue-600 {
+      color: var(--text-secondary);
+    }
+    .border-blue-200, .border-blue-300 {
+      border-color: var(--card-border);
+    }
+    .group-hover\:text-white:hover {
+      color: white !important;
+    }
+  </style>
+</head>
+<body>
+<div id="glassOverlay" class="glass-overlay"></div>
+<div class="content">
+  <!-- Particules flottantes -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <div class="absolute w-2 h-2 bg-blue-800/20 rounded-full" style="top:10%; left:20%; animation:float 6s infinite;"></div>
+    <div class="absolute w-3 h-3 bg-blue-800/20 rounded-full" style="top:30%; left:70%; animation:float 8s infinite;"></div>
+    <div class="absolute w-1 h-1 bg-blue-800/20 rounded-full" style="top:50%; left:15%; animation:float 5s infinite;"></div>
+    <div class="absolute w-2 h-2 bg-blue-800/20 rounded-full" style="top:80%; left:85%; animation:float 7s infinite;"></div>
+    <div class="absolute w-3 h-3 bg-blue-800/20 rounded-full" style="top:20%; left:45%; animation:float 9s infinite;"></div>
+    <div class="absolute w-2 h-2 bg-blue-800/20 rounded-full" style="top:60%; left:55%; animation:float 4s infinite;"></div>
+    <div class="absolute w-1 h-1 bg-blue-800/20 rounded-full" style="top:75%; left:30%; animation:float 6s infinite;"></div>
+    <div class="absolute w-2 h-2 bg-blue-800/20 rounded-full" style="top:40%; left:88%; animation:float 5s infinite;"></div>
+  </div>
+  
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 py-6">
+    <div class="max-w-7xl mx-auto px-6 nav-wrapper">
+      <div class="liquidGlass-wrapper">
+        <div class="liquidGlass-text">
+          <div class="nav-container">
+            <a href="#home" class="flex items-center group cursor-pointer">
+              <img src="Capture d’écran 2026-04-09 à 16.39.34.png" alt="Tikshoret" class="nav-logo-img">
+            </a>
+            <button class="mobile-menu-btn" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+              <a href="#home" class="text-sm font-medium hover:text-blue-600 transition" style="color: var(--text-primary);">Accueil</a>
+              <a href="#about" class="text-sm font-medium hover:text-blue-600 transition" style="color: var(--text-primary);">À Propos</a>
+              <a href="#services" class="text-sm font-medium hover:text-blue-600 transition" style="color: var(--text-primary);">Services</a>
+              <a href="#realisations" class="text-sm font-medium hover:text-blue-600 transition" style="color: var(--text-primary);">Réalisations</a>
+              <a href="#contact" class="text-sm font-medium hover:text-blue-600 transition" style="color: var(--text-primary);">Contact</a>
+              <a href="#contact" class="px-6 py-2.5 bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 rounded-full text-sm font-bold transition shadow-lg shadow-blue-500/20 text-white">Démarrer un projet</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+      <div class="hero-bg"></div>
+      <div class="max-w-7xl mx-auto w-full relative z-10 px-6">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-md border border-white/40 text-white text-[0.65rem] md:text-xs font-bold uppercase tracking-wider mb-6 fade-up">
+            <span class="relative flex h-2 w-2"><span class="absolute inline-flex h-full w-full rounded-full bg-blue-500"></span></span>
+            Disponible pour de nouveaux défis
+          </div>
+          <div class="inline-block fade-up">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tight drop-shadow-lg animated-title">
+              <span class="hero-gradient-text">LE DIGITAL AU</span><br />
+              <span class="service-gradient-text">SERVICE</span><br />
+              <span class="hero-gradient-text">DE VOS</span>
+              <div class="dropping-texts">
+                <div>VENTES</div><div>MARKETINGS</div><div>COMMUNICATIONS</div><div>STRATÉGIES</div><div>CROISSANCES</div>
+              </div>
+            </h1>
+          </div>
+          <p class="text-xl max-w-2xl mt-6 fade-up leading-relaxed drop-shadow-sm" style="color: var(--hero-text);">
+            Nous transformons votre vision en une identité digitale percutante. Stratégie, Design et Performance pour propulser votre croissance.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-start mt-8 fade-up">
+            <a href="#services" class="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-xl font-bold transition flex items-center gap-2 shadow-xl shadow-blue-500/20 text-white">
+              Voir nos services <i class="fas fa-arrow-right group-hover:translate-x-1 transition"></i>
+            </a>
+            <a href="#realisations" class="px-8 py-4 bg-white/80 backdrop-blur-md hover:bg-white border border-blue-300 rounded-xl font-bold transition text-blue-800 shadow-md">Nos réalisations</a>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-10"><i class="fas fa-chevron-down text-white text-2xl drop-shadow-md"></i></div>
+    </section>
+    
+    <!-- Clients marquee (fond noir) -->
+    <section class="testimonials-section py-16 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12 fade-up">
+          <h2 class="font-bold uppercase tracking-widest text-2xl">Ils nous font confiance</h2>
+          <p class="mt-3 text-xl">Des partenaires d'excellence</p>
+        </div>
+        <div class="space-y-6">
+          <div class="relative w-full overflow-hidden"><div class="marquee-line1"><div class="glass-card">Anaversel</div><div class="glass-card">Moulaye Electronic</div><div class="glass-card">Babi chill</div><div class="glass-card">Hevae</div><div class="glass-card">Agaicha Maïga</div><div class="glass-card">Lycée la Colombe</div><div class="glass-card">Millénium</div><div class="glass-card">Anaversel</div><div class="glass-card">Moulaye Electronic</div><div class="glass-card">Babi chill</div><div class="glass-card">Hevae</div><div class="glass-card">Agaicha Maïga</div><div class="glass-card">Lycée la Colombe</div><div class="glass-card">Millénium</div></div></div>
+          <div class="relative w-full overflow-hidden"><div class="marquee-line2"><div class="glass-card">Anaversel</div><div class="glass-card">Moulaye Electronic</div><div class="glass-card">Babi chill</div><div class="glass-card">Hevae</div><div class="glass-card">Agaicha Maïga</div><div class="glass-card">Lycée la Colombe</div><div class="glass-card">Millénium</div><div class="glass-card">Anaversel</div><div class="glass-card">Moulaye Electronic</div><div class="glass-card">Babi chill</div><div class="glass-card">Hevae</div><div class="glass-card">Agaicha Maïga</div><div class="glass-card">Lycée la Colombe</div><div class="glass-card">Millénium</div></div></div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- About Section (fond noir) -->
+    <section id="about" class="py-32 px-6" style="background-color: #000;">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20 items-center">
+        <div class="lg:w-1/2 relative fade-left">
+          <div class="aspect-square rounded-3xl border overflow-hidden" style="background-color: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3);">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" alt="Équipe" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-700" loading="lazy">
+          </div>
+          <div class="absolute -bottom-6 -right-6 bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl shadow-xl hidden md:block">
+            <p class="text-3xl font-black text-white">10 ANS</p>
+            <p class="text-xs uppercase font-bold text-gray-300">D'expérience</p>
+          </div>
+        </div>
+        <div class="lg:w-1/2 space-y-6 fade-right">
+          <h2 class="font-bold uppercase tracking-widest text-sm text-white">À PROPOS DE NOUS</h2>
+          <h3 class="text-4xl md:text-5xl font-black leading-tight text-white">Une agence créative qui pense "ROI first".</h3>
+          <p class="text-lg text-gray-200">Tikshoret est née de la volonté de simplifier la communication digitale. Nous ne créons pas seulement des designs "beaux", nous construisons des écosystèmes qui convertissent vos visiteurs en clients fidèles.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i><span class="font-medium text-gray-200">Approche centrée utilisateur</span></div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i><span class="font-medium text-gray-200">Design haute performance</span></div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i><span class="font-medium text-gray-200">Stratégie data-driven</span></div>
+            <div class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i><span class="font-medium text-gray-200">Support ultra-réactif</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 relative">
+      <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-20 fade-up">
+          <h3 class="text-5xl md:text-6xl font-black floating-text" style="color: var(--text-secondary);">Nos Expertises Digitales</h3>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="group p-10 border rounded-3xl hover:-translate-y-2 transition duration-500 fade-up" style="background-color: var(--card-bg); border-color: var(--card-border);"><div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-700 group-hover:text-white transition" style="background-color: var(--input-bg); color: var(--text-muted);"><i class="fas fa-desktop text-3xl"></i></div><h4 class="text-2xl font-bold mb-4" style="color: var(--text-secondary);">UI/UX Design</h4><p class="leading-relaxed mb-6" style="color: var(--text-primary);">Interfaces intuitives et modernes optimisées pour la conversion.</p><div class="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition uppercase tracking-widest" style="color: var(--text-muted);">En savoir plus <i class="fas fa-arrow-right"></i></div></div>
+          <div class="group p-10 border rounded-3xl hover:-translate-y-2 transition duration-500 fade-up" style="background-color: var(--card-bg); border-color: var(--card-border);"><div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-700 group-hover:text-white transition" style="background-color: var(--input-bg); color: var(--text-muted);"><i class="fas fa-users text-3xl"></i></div><h4 class="text-2xl font-bold mb-4" style="color: var(--text-secondary);">Stratégie Social Media</h4><p class="leading-relaxed mb-6" style="color: var(--text-primary);">Engagez votre communauté avec du contenu créatif et viral.</p><div class="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition uppercase tracking-widest" style="color: var(--text-muted);">En savoir plus <i class="fas fa-arrow-right"></i></div></div>
+          <div class="group p-10 border rounded-3xl hover:-translate-y-2 transition duration-500 fade-up" style="background-color: var(--card-bg); border-color: var(--card-border);"><div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-700 group-hover:text-white transition" style="background-color: var(--input-bg); color: var(--text-muted);"><i class="fas fa-chart-line text-3xl"></i></div><h4 class="text-2xl font-bold mb-4" style="color: var(--text-secondary);">Marketing Digital (Ads)</h4><p class="leading-relaxed mb-6" style="color: var(--text-primary);">Campagnes Meta et Google Ads avec un ROI garanti.</p><div class="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition uppercase tracking-widest" style="color: var(--text-muted);">En savoir plus <i class="fas fa-arrow-right"></i></div></div>
+          <div class="group p-10 border rounded-3xl hover:-translate-y-2 transition duration-500 fade-up" style="background-color: var(--card-bg); border-color: var(--card-border);"><div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-700 group-hover:text-white transition" style="background-color: var(--input-bg); color: var(--text-muted);"><i class="fas fa-code text-3xl"></i></div><h4 class="text-2xl font-bold mb-4" style="color: var(--text-secondary);">Développement Web</h4><p class="leading-relaxed mb-6" style="color: var(--text-primary);">Sites vitrines et e-commerce ultra-rapides et SEO-friendly.</p><div class="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition uppercase tracking-widest" style="color: var(--text-muted);">En savoir plus <i class="fas fa-arrow-right"></i></div></div>
+          <div class="group p-10 border rounded-3xl hover:-translate-y-2 transition duration-500 fade-up" style="background-color: var(--card-bg); border-color: var(--card-border);"><div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-700 group-hover:text-white transition" style="background-color: var(--input-bg); color: var(--text-muted);"><i class="fas fa-palette text-3xl"></i></div><h4 class="text-2xl font-bold mb-4" style="color: var(--text-secondary);">Branding & Identité</h4><p class="leading-relaxed mb-6" style="color: var(--text-primary);">Création de logos et chartes graphiques qui marquent les esprits.</p><div class="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition uppercase tracking-widest" style="color: var(--text-muted);">En savoir plus <i class="fas fa-arrow-right"></i></div></div>
+          <div class="group p-10 border rounded-3xl hover:-translate-y-2 transition duration-500 fade-up" style="background-color: var(--card-bg); border-color: var(--card-border);"><div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-700 group-hover:text-white transition" style="background-color: var(--input-bg); color: var(--text-muted);"><i class="fas fa-pen-fancy text-3xl"></i></div><h4 class="text-2xl font-bold mb-4" style="color: var(--text-secondary);">Copywriting de Vente</h4><p class="leading-relaxed mb-6" style="color: var(--text-primary);">Des mots qui vendent et racontent votre histoire unique.</p><div class="flex items-center gap-2 font-bold text-sm group-hover:gap-4 transition uppercase tracking-widest" style="color: var(--text-muted);">En savoir plus <i class="fas fa-arrow-right"></i></div></div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience" class="py-32 px-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-center font-bold uppercase tracking-widest text-sm mb-16 fade-up" style="color: var(--text-muted);">NOTRE PARCOURS</h2>
+        <div class="space-y-12">
+          <div class="flex gap-8 group fade-left"><div class="flex flex-col items-center"><div class="w-4 h-4 rounded-full bg-blue-600 border-4 border-white group-hover:scale-150 transition"></div><div class="w-1 h-full rounded-full mt-2" style="background-color: var(--card-border);"></div></div><div><span class="font-bold" style="color: var(--text-muted);">2023 - Présent</span><h4 class="text-2xl font-bold mt-1" style="color: var(--text-secondary);">Expansion Internationale • TIKSHORET</h4><p class="mt-2" style="color: var(--text-primary);">Ouverture de bureaux à Paris et Dubai. Focus sur l'IA générative appliquée au marketing.</p></div></div>
+          <div class="flex gap-8 group fade-left"><div class="flex flex-col items-center"><div class="w-4 h-4 rounded-full bg-blue-600 border-4 border-white group-hover:scale-150 transition"></div><div class="w-1 h-full rounded-full mt-2" style="background-color: var(--card-border);"></div></div><div><span class="font-bold" style="color: var(--text-muted);">2020 - 2022</span><h4 class="text-2xl font-bold mt-1" style="color: var(--text-secondary);">Leader Régional Digital • TIKSHORET</h4><p class="mt-2" style="color: var(--text-primary);">Accompagnement de plus de 150 startups dans leur levée de fonds via des identités visuelles fortes.</p></div></div>
+          <div class="flex gap-8 group fade-left"><div class="flex flex-col items-center"><div class="w-4 h-4 rounded-full bg-blue-600 border-4 border-white group-hover:scale-150 transition"></div></div><div><span class="font-bold" style="color: var(--text-muted);">2018 - 2020</span><h4 class="text-2xl font-bold mt-1" style="color: var(--text-secondary);">Lancement Agence Créative • TIKSHORET Core</h4><p class="mt-2" style="color: var(--text-primary);">Création de l'entité Tikshoret avec une vision de rupture : design minimaliste et impact maximal.</p></div></div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Réalisations -->
+    <section id="realisations" class="realisations-section">
+      <div class="realisations-container">
+        <h2 class="realisations-title fade-up">Nos Réalisations</h2>
+        <p class="realisations-sub fade-up">Découvrez nos projets récents</p>
+        <ul class="photogallery fade-up" id="photogallery"></ul>
+      </div>
+    </section>
+    
+    <!-- Section Nos Tikshorets (effet d'écriture au scroll, texte reste après animation) -->
+    <section id="tikshorets" class="tikshorets-section">
+      <div class="tikshorets-container">
+        <h1 class="tikshorets-title" id="typingTitle"></h1>
+        <div class="logos-grid fade-up" id="logosGrid"></div>
+      </div>
+    </section>
+    
+    <!-- Contact -->
+    <section id="contact" class="py-32 px-6 relative">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden fade-up" style="background-color: var(--card-bg); border: none; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);">
+          <div class="flex flex-col lg:flex-row">
+            <div class="lg:w-1/2 p-12 md:p-16 space-y-8" style="background-color: var(--input-bg);">
+              <div class="space-y-4"><h3 class="text-5xl md:text-6xl font-black leading-tight" style="color: var(--text-secondary);">Discutons de <span class="text-gradient">votre succès</span></h3><p class="text-lg" style="color: var(--text-primary);">Une question, un projet ? Notre équipe est là pour vous accompagner. Remplissez le formulaire ou contactez-nous directement.</p></div>
+              <div class="space-y-6 pt-6">
+                <div class="flex items-center gap-5 group hover:translate-x-2 transition-transform duration-300"><div class="w-14 h-14 rounded-2xl flex items-center justify-center border transition" style="background-color: var(--card-bg); color: var(--text-muted); border-color: var(--card-border);"><i class="fas fa-envelope text-2xl"></i></div><div><p class="text-xs uppercase font-bold tracking-wider" style="color: var(--text-muted);">Email professionnel</p><p class="text-xl font-semibold" style="color: var(--text-secondary);">contact@tikshoret.com</p></div></div>
+                <div class="flex items-center gap-5 group hover:translate-x-2 transition-transform duration-300"><div class="w-14 h-14 rounded-2xl flex items-center justify-center border transition" style="background-color: var(--card-bg); color: var(--text-muted); border-color: var(--card-border);"><i class="fas fa-phone-alt text-2xl"></i></div><div><p class="text-xs uppercase font-bold tracking-wider" style="color: var(--text-muted);">Ligne directe</p><p class="text-xl font-semibold" style="color: var(--text-secondary);">+33 1 23 45 67 89</p></div></div>
+                <div class="flex items-center gap-5 group hover:translate-x-2 transition-transform duration-300"><div class="w-14 h-14 rounded-2xl flex items-center justify-center border transition" style="background-color: var(--card-bg); color: var(--text-muted); border-color: var(--card-border);"><i class="fas fa-map-marker-alt text-2xl"></i></div><div><p class="text-xs uppercase font-bold tracking-wider" style="color: var(--text-muted);">Adresse</p><p class="text-xl font-semibold" style="color: var(--text-secondary);">Paris, France</p></div></div>
+              </div>
+              <div class="flex gap-5 pt-8">
+                <a href="#" class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary);"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary);"><i class="fab fa-linkedin-in text-xl"></i></a>
+                <a href="#" class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary);"><i class="fab fa-github text-xl"></i></a>
+                <a href="#" class="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110" style="background-color: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-primary);"><i class="fab fa-twitter text-xl"></i></a>
+              </div>
+            </div>
+            <div class="lg:w-1/2 p-12 md:p-16">
+              <form id="contact-form" class="space-y-8">
+                <div class="grid md:grid-cols-2 gap-6"><div><label class="block text-sm font-bold mb-2" style="color: var(--text-secondary);"><i class="fas fa-user mr-2" style="color: var(--text-muted);"></i>Nom complet</label><input type="text" name="name" required class="premium-input"></div><div><label class="block text-sm font-bold mb-2" style="color: var(--text-secondary);"><i class="fas fa-envelope mr-2" style="color: var(--text-muted);"></i>Email</label><input type="email" name="email" required class="premium-input"></div></div>
+                <div><label class="block text-sm font-bold mb-2" style="color: var(--text-secondary);"><i class="fas fa-tag mr-2" style="color: var(--text-muted);"></i>Objet</label><select name="subject" class="premium-input"><option>UI/UX Design</option><option>Marketing Digital</option><option>Développement Web</option><option>Autre</option></select></div>
+                <div><label class="block text-sm font-bold mb-2" style="color: var(--text-secondary);"><i class="fas fa-comment mr-2" style="color: var(--text-muted);"></i>Message</label><textarea name="message" rows="5" required class="premium-input resize-none"></textarea></div>
+                <button type="submit" class="ripple-btn w-full flex items-center justify-center gap-3 text-lg">Envoyer le message <i class="fas fa-paper-plane"></i></button>
+                <div id="form-status" class="text-center hidden"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="py-10 px-6 border-t" style="background-color: var(--footer-bg); border-color: var(--footer-border);">
+    <div class="max-w-7xl mx-auto">
+      <div class="footer-main">
+        <div class="footer-logo">
+          <img src="Capture d’écran 2026-04-09 à 16.39.34.png" alt="Tikshoret" class="footer-logo-img">
+        </div>
+        <div class="footer-social">
+          <ul>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="hover:opacity-80">Mentions Légales</a>
+        <a href="#" class="hover:opacity-80">Politique de confidentialité</a>
+        <a href="#" class="hover:opacity-80">Cookies</a>
+      </div>
+      <div class="footer-copyright">
+        <p>© 2025 Tikshoret Digital. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()"><img id="lightbox-img" src="" alt="Aperçu"></div>
+
+<!-- Boutons flottants -->
+<div class="floating-buttons">
+  <button id="darkModeToggle" class="dark-mode-btn"><i class="fas fa-moon"></i></button>
+  <div id="chatButton" class="chat-button"><i class="fas fa-comment-dots"></i></div>
+</div>
+<div id="chatWindow" class="chat-window hidden"><div class="chat-header"><span><i class="fas fa-robot mr-2"></i>Assistant Tikshoret</span><i id="closeChat" class="fas fa-times cursor-pointer hover:opacity-80"></i></div><div id="chatMessages" class="chat-messages"></div><div class="chat-input"><input type="text" id="chatInput" placeholder="Écrivez votre message..."><button id="sendChat"><i class="fas fa-paper-plane"></i></button></div></div>
+
+<script>
+  // Chatbot
+  const chatButton = document.getElementById('chatButton');
+  const chatWindow = document.getElementById('chatWindow');
+  const closeChatBtn = document.getElementById('closeChat');
+  const chatMessagesDiv = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const sendBtn = document.getElementById('sendChat');
+  function addMessage(text, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+    const bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
+    bubble.textContent = text;
+    messageDiv.appendChild(bubble);
+    chatMessagesDiv.appendChild(messageDiv);
+    chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+  }
+  function resetChat() { chatMessagesDiv.innerHTML = ''; addMessage("Bonjour ! Je suis l'assistant virtuel de Tikshoret. Comment puis-je vous aider ?", false); }
+  function getBotResponse(userMessage) {
+    const msg = userMessage.toLowerCase();
+    if (msg.match(/bonjour|salut|coucou|hello|hey/)) return "Bonjour ! Je suis l'assistant de Tikshoret. Nous sommes une agence digitale spécialisée dans la stratégie, le design et la performance. Comment puis-je vous aider ?";
+    if (msg.match(/service|expertise|proposez/)) return "Nous proposons plusieurs services : UI/UX Design, Stratégie Social Media, Marketing Digital (Ads), Développement Web, Branding & Identité, Copywriting de vente. Lequel vous intéresse ?";
+    if (msg.match(/projet|realisation|portfolio|travaux/)) return "Nos réalisations incluent des projets pour Anaversel, Babi Chill, Collège Millénium, Moulaye Electronic, Hevae, Adja Makeup, et bien d'autres. Consultez notre section 'Nos Réalisations' pour voir les détails.";
+    if (msg.match(/qui êtes vous|agence|présentation/)) return "Tikshoret est une agence créative fondée il y a 10 ans. Nous aidons les entreprises à transformer leur vision en identité digitale percutante, avec une approche ROI first. Nous avons accompagné plus de 500 clients satisfaits.";
+    if (msg.match(/contact|email|téléphone|joindre/)) return "Vous pouvez nous contacter par email à contact@tikshoret.com, par téléphone au +33 1 23 45 67 89, ou via le formulaire de contact sur notre site. Nous vous répondrons rapidement !";
+    if (msg.match(/prix|tarif|coût|combien/)) return "Nos tarifs varient selon les prestations. Pour un devis personnalisé, n'hésitez pas à remplir le formulaire de contact ou à nous appeler. Nous étudions chaque projet avec attention.";
+    if (msg.match(/expérience|année|parcours/)) return "Tikshoret a été créée en 2018. Depuis, nous avons connu une expansion internationale en 2023 avec des bureaux à Paris et Dubaï. Nous avons accompagné plus de 150 startups dans leurs levées de fonds.";
+    if (msg.match(/merci/)) return "Avec plaisir ! N'hésitez pas si vous avez d'autres questions. Je reste à votre disposition.";
+    return "Je vous invite à consulter notre site pour plus d'informations. Vous pouvez aussi me poser une question sur nos services, nos projets, nos coordonnées, etc.";
+  }
+  function sendMessage() { const userText = chatInput.value.trim(); if (!userText) return; addMessage(userText, true); chatInput.value = ''; setTimeout(() => { const reply = getBotResponse(userText); addMessage(reply, false); }, 500); }
+  chatButton.addEventListener('click', () => { chatWindow.classList.remove('hidden'); });
+  closeChatBtn.addEventListener('click', () => { chatWindow.classList.add('hidden'); resetChat(); });
+  sendBtn.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+  resetChat();
+
+  // Overlay glassmorphique
+  const overlay = document.getElementById('glassOverlay');
+  window.addEventListener('scroll', () => { const scrollY = window.scrollY; const maxScroll = document.body.scrollHeight - window.innerHeight; const intensity = Math.min(scrollY / (maxScroll / 2), 0.8); const blurValue = intensity * 8; const bgOpacity = intensity * 0.2; overlay.style.backdropFilter = `blur(${blurValue}px)`; overlay.style.background = `rgba(255,255,255,${bgOpacity})`; });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  function openLightbox(src) { lightboxImg.src = src; lightbox.classList.add('active'); }
+  function closeLightbox() { lightbox.classList.remove('active'); lightboxImg.src = ''; }
+
+  // Menu hamburger
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => { navLinks.classList.toggle('open'); const icon = menuToggle.querySelector('i'); if (navLinks.classList.contains('open')) { icon.classList.remove('fa-bars'); icon.classList.add('fa-times'); } else { icon.classList.remove('fa-times'); icon.classList.add('fa-bars'); } });
+
+  // Intersection Observer pour les animations fade
+  const observerFade = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.2 });
+  document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-up').forEach(el => observerFade.observe(el));
+
+  // Formulaire de contact
+  const form = document.getElementById('contact-form');
+  const statusDiv = document.getElementById('form-status');
+  if (form) { form.addEventListener('submit', async (e) => { e.preventDefault(); statusDiv.classList.remove('hidden'); statusDiv.innerHTML = '<div class="text-blue-600 mt-4"><i class="fas fa-spinner fa-spin mr-2"></i>Envoi en cours...</div>'; setTimeout(() => { statusDiv.innerHTML = '<div class="text-green-600 mt-4"><i class="fas fa-check-circle mr-2"></i>Message envoyé avec succès !</div>'; form.reset(); setTimeout(() => statusDiv.classList.add('hidden'), 3000); }, 1500); }); }
+
+  // Galerie des réalisations (images locales)
+  const imagesList = [
+    "hevae.webp",
+    "ramadan hevae-2.png",
+    "Annaversel-2.png",
+    "affiche adja.jpg",
+    "Babi chill-2-2.jpg",
+    "decembre hevae (1).jpg",
+    "electo moulaye.webp"
+  ];
+  const galleryContainer = document.getElementById('photogallery');
+  if (galleryContainer) {
+    imagesList.forEach(src => {
+      const li = document.createElement('li');
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = "Réalisation Tikshoret";
+      img.loading = "lazy";
+      img.onerror = function() { this.src = "https://placehold.co/600x400/e2e8f0/1e40af?text=Image+manquante"; };
+      li.appendChild(img);
+      li.addEventListener('click', (e) => { e.stopPropagation(); openLightbox(src); });
+      galleryContainer.appendChild(li);
+    });
+    const emptyLi = document.createElement('li');
+    galleryContainer.appendChild(emptyLi);
+  }
+
+  // Logos clients (section Nos Tikshorets)
+  const logosList = [
+    "logo Anna.png",
+    "logo event com.png",
+    "LOGO MALI EVENT.png",
+    "logo Moulage.png",
+    "logo SUNSET.png",
+    "logo hevae.png",
+    "logo babi chill.png",
+    "logo AGAICHA.png",
+    "logo adjacent.png",
+    "logo millenium.png"
+  ];
+  const logosContainer = document.getElementById('logosGrid');
+  if (logosContainer) {
+    logosList.forEach(src => {
+      const div = document.createElement('div');
+      div.className = 'logo-item';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = "Logo partenaire";
+      img.loading = "lazy";
+      img.onerror = function() { this.src = "https://placehold.co/200x100/e2e8f0/1e40af?text=Logo+manquant"; };
+      div.appendChild(img);
+      logosContainer.appendChild(div);
+    });
+  }
+
+  // ----- EFFET MACHINE À ÉCRIRE (reste affiché après animation) -----
+  const tikshoretsSection = document.getElementById('tikshorets');
+  const titleElement = document.getElementById('typingTitle');
+  const fullTitle = "Nos Tikshorets";
+  let typingInterval = null;
+  let titleIndex = 0;
+  let isAnimating = false;
+  let cursorVisible = true;
+
+  // Fonction pour afficher/masquer le curseur (clignotement)
+  function blinkCursor() {
+    if (!titleElement) return;
+    if (cursorVisible) {
+      titleElement.style.borderRight = "2px solid var(--text-muted)";
+    } else {
+      titleElement.style.borderRight = "2px solid transparent";
+    }
+    cursorVisible = !cursorVisible;
+  }
+
+  let cursorInterval = null;
+
+  function startTypingEffect() {
+    if (isAnimating) return;
+    isAnimating = true;
+    titleIndex = 0;
+    titleElement.textContent = "";
+    titleElement.style.borderRight = "2px solid var(--text-muted)";
+    if (cursorInterval) clearInterval(cursorInterval);
+    cursorInterval = setInterval(blinkCursor, 500);
+    if (typingInterval) clearInterval(typingInterval);
+    typingInterval = setInterval(() => {
+      if (titleIndex < fullTitle.length) {
+        titleElement.textContent = fullTitle.substring(0, titleIndex + 1);
+        titleIndex++;
+      } else {
+        // Fin de l'écriture : on arrête l'intervalle et on garde le curseur (clignotant)
+        clearInterval(typingInterval);
+        typingInterval = null;
+        isAnimating = false;
+        // On laisse le curseur clignoter encore un peu, mais on peut le laisser (optionnel)
+        // Pour éviter qu'il clignote indéfiniment, on pourrait le retirer après 2 secondes, mais on le garde pour l'effet.
+      }
+    }, 100);
+  }
+
+  function resetTypingEffect() {
+    if (typingInterval) {
+      clearInterval(typingInterval);
+      typingInterval = null;
+    }
+    if (cursorInterval) {
+      clearInterval(cursorInterval);
+      cursorInterval = null;
+    }
+    isAnimating = false;
+    titleElement.textContent = "";
+    titleElement.style.borderRight = "none";
+  }
+
+  // Observer pour la section Tikshorets
+  const observerTik = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startTypingEffect();
+      } else {
+        resetTypingEffect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  if (tikshoretsSection) {
+    observerTik.observe(tikshoretsSection);
+  }
+
+  // Effet glass au scroll
+  const navbar = document.getElementById('navbar');
+  function handleNavbarScroll() {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', handleNavbarScroll);
+  handleNavbarScroll();
+
+  // Dark mode
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  if (isDarkMode) {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
+    darkModeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  });
+</script>
+</body>
+</html>
